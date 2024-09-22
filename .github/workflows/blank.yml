@@ -22,7 +22,7 @@ jobs:
 
     # The type of runner that the job will run on
     env:
-      REPO_NAME: "ellaphamhp/Snowflake-CICD"
+      REPO_NAME: "integration.public.snowflake_repo"
       # Read connection secrets
       SNOWFLAKE_CONNECTIONS_DEFAULT_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
       SNOWFLAKE_CONNECTIONS_DEFAULT_USER: ${{ secrets.SNOWFLAKE_USER }}
