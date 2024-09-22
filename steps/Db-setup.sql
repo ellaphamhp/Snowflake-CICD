@@ -1,4 +1,6 @@
-create or replace database DATAPROJECT;
+create or replace database DATAPROJECT_{{environment}};
+
+USE DATABASE DATAPROJECT_{{environment}}
 
 create or replace schema DW;
 

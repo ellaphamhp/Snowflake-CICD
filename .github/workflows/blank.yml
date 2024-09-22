@@ -1,12 +1,12 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: Deploye pipeline for Data Project
 
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the "master" branch
   push:
-    branches: [ "master" ]
+    branches: [ "master", "dev"]
   pull_request:
     branches: [ "master" ]
 
@@ -15,22 +15,39 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
+  # This workflow contains a single job called "deploy"
+  deploy:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
+    # The type of runner that the job will run on
+    env:
+    REPO_NAME: "Snowflake-CICD"
+    # Read connection secrets
+    SNOWFLAKE_CONNECTIONS_DEFAULT_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
+    SNOWFLAKE_CONNECTIONS_DEFAULT_USER: ${{ secrets.SNOWFLAKE_USER }}
+    SNOWFLAKE_CONNECTIONS_DEFAULT_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v4
+      # Checkout step is necessary if you want to use a config file from your repo
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
+      # Install Snowflake CLI GitHub Action and point to config file
+      - uses: Snowflake-Labs/snowflake-cli-action@v1
+        with:
+          cli-version: "latest"
+          default-config-file-path: "config.toml"
 
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+      # Update Snowflake's copy of the repository
+      - name: Fetch repository changes
+        run: snow git fetch "${REPO_NAME}"
+
+      # Deploy pipeline with branch specific parameters
+      - name: Deploy data pipeline to ${{ github.ref_name }}
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+          BRANCH_NAME=${{ github.ref_name }}
+          fi
+          snow git execute \
+            "@${REPO_NAME}/branches/${BRANCH_NAME}/deploy_pipeline.sql" \
+            -D "environment='${BRANCH_NAME}'" \
