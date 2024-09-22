@@ -1,3 +1,0 @@
-[connections.default]
-warehouse = "COMPUTE_WH"
-role = "ACCOUNTADMIN"
