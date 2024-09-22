@@ -1,10 +1,11 @@
-create or replace database DATAPROJECT_{{environment}};
+CREATE OR REPLACE DATABASE DATAPROJECT_{{environment}};
 
-USE DATABASE DATAPROJECT_{{environment}}
 
-create or replace schema DW;
+CREATE SCHEMA IF NOT EXISTS DW;
 
-create or replace TABLE EMPLOYMENT_BY_INDUSTRY (
+USE SCHEMA DATAPROJECT_{{environment}}.DW;
+
+CREATE OR REPLACE TABLE EMPLOYMENT_BY_INDUSTRY (
 	"Period" VARCHAR(16777216),
 	"Year" NUMBER(38,0),
 	"Month" NUMBER(38,0),
