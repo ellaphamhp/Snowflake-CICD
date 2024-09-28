@@ -1,2 +1,2 @@
-execute immediate from 'steps/Db-setup.sql' using (environment => '{{environment}}');;
+execute immediate from 'steps/DB-Setup.sql' using (environment => '{{environment}}', lookerpassword => '{{lookerpassword}}');;
 
