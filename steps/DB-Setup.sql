@@ -22,7 +22,7 @@ ALTER file format DATAPROJECT_{{environment}}.public.my_csv_format SET FIELD_OPT
 // Creating file format object: json
 CREATE OR REPLACE file format DATAPROJECT_{{environment}}.public.my_json_format
     TYPE = JSON,
-    STRIP_OUTER_ARRAY = TRUE
+    STRIP_OUTER_ARRAY = TRUE;
 --DESC file format DATAPROJECT.public.my_json_format
 
 
