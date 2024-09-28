@@ -1,4 +1,4 @@
-ALTER SESSION SET TIMEZONE='UTC'
+ALTER SESSION SET TIMEZONE='UTC';
 
 //Create Hieracy Table
 
@@ -35,7 +35,7 @@ AS
             ,CURRENT_TIMESTAMP(0) as "Created_Date"
     ,CASE WHEN ("Level_2_ID_1" = 'CEU5' OR "Level_2_ID_1" = 'CEU6') THEN LEFT("SeriesID",5) ELSE "Level_2_ID_1" END AS "Level_2_ID"
     FROM cte
-)
+);
 
 
 //Level_4_Hierachies table
@@ -47,7 +47,7 @@ SELECT DISTINCT
     ,"Created_Date"
 FROM DATAPROJECT_{{environment}}.DW.Hierachies
 WHERE "Hierachy_Level" = 4
-ORDER BY "SeriesID"
+ORDER BY "SeriesID";
 
 
 //Level_2_Hierachies table
@@ -58,7 +58,7 @@ SELECT DISTINCT
     ,"Created_Date"
 FROM DATAPROJECT_{{environment}}.DW.Hierachies
 WHERE "Hierachy_Level" = 2
-ORDER BY "Level_2_ID"
+ORDER BY "Level_2_ID";
 
 
 
