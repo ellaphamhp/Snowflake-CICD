@@ -32,49 +32,49 @@ CREATE OR REPLACE file format DATAPROJECT_{{environment}}.public.my_json_format
 //Create stage that store my data files: employment by industry tables
 CREATE OR REPLACE STAGE my_s3_stage
   URL='s3://dataproject-jun24/usa/labor/industry_employment/us_employment_by_industry.csv/'
-  STORAGE_INTEGRATION = aws
-  DIRECTORY = (
-    ENABLE = true
-    AUTO_REFRESH = true
-    AWS_SNS_TOPIC = 'arn:aws:sns:eu-west-2:899986137183:newdata_us_employment'
-  );
+    STORAGE_INTEGRATION = aws
+    DIRECTORY = (
+      ENABLE = true
+      AUTO_REFRESH = true
+      AWS_SNS_TOPIC = 'arn:aws:sns:eu-west-2:899986137183:newdata_us_employment'
+    );
  -- DESC STAGE my_s3_stage
 
 //Create stage that store my data files: hourly earning by industry
 CREATE OR REPLACE STAGE my_s3_stage_hourly_earnings
-  URL= 's3://dataproject-jun24/usa/labor/industry_employment/us_hourly_earnings_by_industry.csv/'
-  STORAGE_INTEGRATION = aws
-  DIRECTORY = (
-    ENABLE = true
-    AUTO_REFRESH = true
-    AWS_SNS_TOPIC = 'arn:aws:sns:eu-west-2:899986137183:New_File_Hourly_Earning_By-Industry'
-  );
+    URL= 's3://dataproject-jun24/usa/labor/industry_employment/us_hourly_earnings_by_industry.csv/'
+    STORAGE_INTEGRATION = aws
+    DIRECTORY = (
+      ENABLE = true
+      AUTO_REFRESH = true
+      AWS_SNS_TOPIC = 'arn:aws:sns:eu-west-2:899986137183:New_File_Hourly_Earning_By-Industry'
+    );
 --DESC STAGE my_s3_stage_hourly_earnings
 
 //Create stage that store my data files: weekly hours by industry
 CREATE OR REPLACE STAGE my_s3_stage_weekly_hours
-  URL= 's3://dataproject-jun24/usa/labor/industry_employment/us_weekly_hours_by_industry.csv/'
-  STORAGE_INTEGRATION = aws
-  DIRECTORY = (
-    ENABLE = true
-    AUTO_REFRESH = true
-    AWS_SNS_TOPIC = 'arn:aws:sns:eu-west-2:899986137183:New_File_Weekly_Hours_By_Industry'
-  );
+    URL= 's3://dataproject-jun24/usa/labor/industry_employment/us_weekly_hours_by_industry.csv/'
+    STORAGE_INTEGRATION = aws
+    DIRECTORY = (
+      ENABLE = true
+      AUTO_REFRESH = true
+      AWS_SNS_TOPIC = 'arn:aws:sns:eu-west-2:899986137183:New_File_Weekly_Hours_By_Industry'
+    );
 --DESC STAGE my_s3_stage_weekly_hours
 
   
 //Create stage that store my data files: events tables
 CREATE OR REPLACE STAGE s3_stage_events
-  URL='s3://dataproject-jun24/events/'
-  FILE_FORMAT = (
-    TYPE = JSON
-  )
-  STORAGE_INTEGRATION = aws
-  DIRECTORY = (
-    ENABLE = true
-    AUTO_REFRESH = true
-    AWS_SNS_TOPIC = 'arn:aws:sns:eu-west-2:899986137183:new_event'
-  );
+    URL='s3://dataproject-jun24/events/'
+    FILE_FORMAT = (
+      TYPE = JSON
+    )
+    STORAGE_INTEGRATION = aws
+    DIRECTORY = (
+      ENABLE = true
+      AUTO_REFRESH = true
+      AWS_SNS_TOPIC = 'arn:aws:sns:eu-west-2:899986137183:new_event'
+    );
 --DESC STAGE s3_stage_events
 
 
@@ -105,9 +105,6 @@ create user if not exists looker_user
     DEFAULT_NAMESPACE = 'DATAPROJECT'
     default_role = looker_role;
 grant role looker_role to user looker_user;
-desc user looker_user
-alter user looker_user
-set default_warehouse = 'COMPUTE_WH'
 
 -- change role
 use role ACCOUNTADMIN;
@@ -128,8 +125,6 @@ grant select on all tables in schema DATAPROJECT_{{environment}}.SERVE  to role 
 -- or
 grant select on future tables in schema DATAPROJECT_{{environment}}.DW  to role looker_role;
 grant select on future tables in schema DATAPROJECT_{{environment}}.SERVE  to role looker_role;
-
-
 
 
 USE SCHEMA DATAPROJECT_{{environment}}.DW;
