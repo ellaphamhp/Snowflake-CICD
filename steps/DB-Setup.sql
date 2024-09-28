@@ -125,16 +125,3 @@ grant select on all tables in schema DATAPROJECT_{{environment}}.SERVE  to role 
 -- or
 grant select on future tables in schema DATAPROJECT_{{environment}}.DW  to role looker_role;
 grant select on future tables in schema DATAPROJECT_{{environment}}.SERVE  to role looker_role;
-
-
-USE SCHEMA DATAPROJECT_{{environment}}.DW;
-
-CREATE OR REPLACE TABLE EMPLOYMENT_BY_INDUSTRY (
-	"Period" VARCHAR(16777216),
-	"Year" NUMBER(38,0),
-	"Month" NUMBER(38,0),
-	"SeriesID" VARCHAR(16777216),
-	"Industry_Name" VARCHAR(16777216),
-	"Metric_Value" FLOAT,
-	"Created_Date" TIMESTAMP_LTZ(0)
-);
