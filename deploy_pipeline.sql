@@ -4,3 +4,4 @@ execute immediate from 'steps/Load-Events-From-API-Gateway.sql' using (environme
 execute immediate from 'steps/Create-DW-Tables.sql' using (environment => '{{environment}}');;
 execute immediate from 'steps/Load-DW-Main-Tables.sql' using (environment => '{{environment}}');;
 execute immediate from 'steps/Load-DW-Hierachy-Tables.sql' using (environment => '{{environment}}');;
+execute immediate from 'steps/Load-Serve-Tables.sql' using (environment => '{{environment}}');;
