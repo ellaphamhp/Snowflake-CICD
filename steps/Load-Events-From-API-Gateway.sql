@@ -14,29 +14,29 @@ CREATE OR REPLACE TABLE DATAPROJECT_{{environment}}.RAW."trade_events" (
 
 //Create procedure to call API, then copy result file stored in S3 into table
 CREATE OR REPLACE PROCEDURE DATAPROJECT_{{environment}}.PUBLIC.Load_Event()
-RETURNS VARCHAR
-LANGUAGE SQL
-AS
-BEGIN
-   SELECT DATAPROJECT_{{environment}}.PUBLIC.GET_EVENT();
-   LET sql := 'COPY INTO DATAPROJECT_{{environment}}.RAW."trade_events" 
-                FROM (
-                    SELECT $1:dateUtc::TIMESTAMP_LTZ
-                        , $1:isBetterThanExpected::VARCHAR
-                        , $1:name::VARCHAR
-                        , $1:volatility::VARCHAR
-                    FROM @DATAPROJECT_{{environment}}."PUBLIC"."S3_STAGE_EVENTS"/<date>/trade_event.json
-                )
-                FILE_FORMAT = DATAPROJECT_{{environment}}.PUBLIC.MY_JSON_FORMAT
-                ON_ERROR=ABORT_STATEMENT;';
-   sql := REPLACE(sql, '<date>', TO_VARCHAR(CURRENT_DATE(), 'YYYYMMDD'));
-   EXECUTE IMMEDIATE (sql);
-   RETURN sql;
-END;
+    RETURNS VARCHAR
+    LANGUAGE SQL
+    AS
+    BEGIN
+    SELECT DATAPROJECT_{{environment}}.PUBLIC.GET_EVENT();
+    LET sql := 'COPY INTO DATAPROJECT_{{environment}}.RAW."trade_events" 
+                    FROM (
+                        SELECT $1:dateUtc::TIMESTAMP_LTZ
+                            , $1:isBetterThanExpected::VARCHAR
+                            , $1:name::VARCHAR
+                            , $1:volatility::VARCHAR
+                        FROM @DATAPROJECT_{{environment}}."PUBLIC"."S3_STAGE_EVENTS"/<date>/trade_event.json
+                    )
+                    FILE_FORMAT = DATAPROJECT_{{environment}}.PUBLIC.MY_JSON_FORMAT
+                    ON_ERROR=ABORT_STATEMENT;';
+    sql := REPLACE(sql, '<date>', TO_VARCHAR(CURRENT_DATE(), 'YYYYMMDD'));
+    EXECUTE IMMEDIATE (sql);
+    RETURN sql;
+    END;
 
 
 //Create Task to Call stored procedures to call API to load data
 CREATE OR REPLACE TASK DATAPROJECT_{{environment}}.PUBLIC.LOAD_EVENT
-WAREHOUSE = COMPUTE_WH
-AFTER   DATAPROJECT_{{environment}}.PUBLIC.LOAD_EMPLOYMENT_BY_INDUSTRY
-AS CALL DATAPROJECT_{{environment}}.PUBLIC.LOAD_EVENT();
+    WAREHOUSE = COMPUTE_WH
+    AFTER   DATAPROJECT_{{environment}}.PUBLIC.LOAD_EMPLOYMENT_BY_INDUSTRY
+    AS CALL DATAPROJECT_{{environment}}.PUBLIC.LOAD_EVENT();
