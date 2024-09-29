@@ -61,7 +61,7 @@ CREATE OR REPLACE TASK DATAPROJECT_{{environment}}.PUBLIC.LOAD_DW_HIERACHIES_L4_
                 ,"Industry_Name"
                 ,"Level_2_ID"
                 ,"Created_Date"
-            FROM DDATAPROJECT_{{environment}}.DW.Hierachies
+            FROM DATAPROJECT_{{environment}}.DW.Hierachies
             WHERE "Hierachy_Level" = 4
         ) V
         ON L4."SeriesID" = V."SeriesID"
@@ -77,7 +77,7 @@ CREATE OR REPLACE TASK DATAPROJECT_{{environment}}.PUBLIC.LOAD_DW_HIERACHIES_L4_
 //Auto Update L2 Hierachies table: only append new L4 hierachies
 CREATE OR REPLACE TASK DATAPROJECT_{{environment}}.PUBLIC.LOAD_DW_HIERACHIES_L2_HOURLY_EARNINGS
     WAREHOUSE = COMPUTE_WH
-    AFTER   DDATAPROJECT_{{environment}}.PUBLIC.LOAD_HOURLY_EARNINGS_BY_INDUSTRY
+    AFTER   DATAPROJECT_{{environment}}.PUBLIC.LOAD_HOURLY_EARNINGS_BY_INDUSTRY
     AS 
         MERGE INTO DATAPROJECT_{{environment}}.DW.HIERACHIES_L2 L2
         USING (
