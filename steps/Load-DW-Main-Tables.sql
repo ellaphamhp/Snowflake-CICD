@@ -12,7 +12,7 @@ CREATE OR REPLACE TASK DATAPROJECT_{{environment}}.PUBLIC.LOAD_EMPLOYMENT_BY_IND
     SCHEDULE = '1440 MINUTE'
     WHEN SYSTEM$STREAM_HAS_DATA('Stream_Raw_Table')
     AS 
-        INSERT INTO DATAPROJECTDATAPROJECT_{{environment}}.DW.EMPLOYMENT_BY_INDUSTRY
+        INSERT INTO DATAPROJECT.DATAPROJECT_{{environment}}.DW.EMPLOYMENT_BY_INDUSTRY
         ("Period", "Year", "Month", "SeriesID", "Industry_Name", "Metric_Value", "Created_Date")
         SELECT "Period", "Year", "Month", "SeriesID", "Industry_Name", "Metric_Value", CURRENT_TIMESTAMP(0) as "Created_Date"
         FROM DATAPROJECT_{{environment}}.PUBLIC.STREAM_RAW_TABLE
