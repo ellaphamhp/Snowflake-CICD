@@ -1,5 +1,5 @@
 --Create external function to call Lambda function Get Inflation Rate:
-CREATE OR REPLACE EXTERNAL FUNCTION DATAPROJECT_{{environment}}.PUBLIC.GET_EVENT
+CREATE OR REPLACE EXTERNAL FUNCTION DATAPROJECT_{{environment}}.PUBLIC.GET_EVENT()
     RETURNS VARIANT
     API_INTEGRATION = get_event_api
     AS 'https://2wwl89e43c.execute-api.eu-west-2.amazonaws.com/Test/Get_Inflation_Rate';
