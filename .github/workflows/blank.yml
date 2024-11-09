@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Deploye pipeline for Data Project
+name: Deploy pipeline for Data Project
 
 # Controls when the workflow will run
 on:
