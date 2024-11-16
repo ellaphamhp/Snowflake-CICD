@@ -1,3 +1,5 @@
+USE DATABASE DATAPROJECT_{{environment}};
+
 execute immediate from 'steps/DB-Setup.sql' using (environment => '{{environment}}', lookerpassword => '{{lookerpassword}}');;
 execute immediate from 'steps/Create-Raw-Tables.sql' using (environment => '{{environment}}');;
 execute immediate from 'steps/Create-DW-Tables.sql' using (environment => '{{environment}}');;
