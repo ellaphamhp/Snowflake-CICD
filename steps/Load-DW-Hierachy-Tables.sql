@@ -1,3 +1,5 @@
+USE DATABASE DATAPROJECT_{{environment}};
+
 ----- Task based on Load_Employment_By_Industry
 //Auto Update L4 Hierachies table: only append new L4 hierachies
 CREATE OR REPLACE TASK DATAPROJECT_{{environment}}.PUBLIC.LOAD_DW_HIERACHIES_L4

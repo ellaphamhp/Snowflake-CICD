@@ -1,3 +1,5 @@
+USE DATABASE DATAPROJECT_{{environment}};
+
 --Create materialised view from pivoted DW tables
 CREATE OR REPLACE VIEW DATAPROJECT_{{environment}}.SERVE.EMPLOYMENT_STATS_BY_INDUSTRY
 AS

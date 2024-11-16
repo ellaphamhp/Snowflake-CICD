@@ -1,3 +1,5 @@
+USE DATABASE DATAPROJECT_{{environment}};
+
 --Create external function to call Lambda function Get Inflation Rate:
 CREATE OR REPLACE EXTERNAL FUNCTION DATAPROJECT_{{environment}}.PUBLIC.GET_EVENT()
     RETURNS VARIANT

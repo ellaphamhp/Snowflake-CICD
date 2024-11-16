@@ -1,3 +1,5 @@
+USE DATABASE DATAPROJECT_{{environment}};
+
 //CREATE PIPE snowpipe_db.public.mypipe
 COPY INTO DATAPROJECT_{{environment}}.RAW."employment_by_industry"
 FROM( SELECT t.$1

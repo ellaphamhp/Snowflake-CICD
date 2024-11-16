@@ -1,3 +1,5 @@
+USE DATABASE DATAPROJECT_{{environment}};
+
 /// Load employmen_by_industry table
 //Create stream on the view
 ALTER TABLE DATAPROJECT_{{environment}}.RAW."employment_by_industry" SET CHANGE_TRACKING = TRUE;

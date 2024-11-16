@@ -1,3 +1,5 @@
+DATAPROJECT_{{environment}}.
+
 //Create raw employment by industry table
 CREATE OR REPLACE TABLE DATAPROJECT_{{environment}}.RAW."employment_by_industry" (
   "Seq_no" INT,

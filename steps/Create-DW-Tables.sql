@@ -1,3 +1,4 @@
+USE DATABASE DATAPROJECT_{{environment}};
 ALTER SESSION SET TIMEZONE='UTC';
 
 //Create Hieracy Table
