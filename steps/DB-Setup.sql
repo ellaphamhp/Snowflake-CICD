@@ -82,7 +82,7 @@ CREATE OR REPLACE STAGE s3_stage_events
 create or replace api integration get_event_api
     api_provider=aws_api_gateway
     api_aws_role_arn='arn:aws:iam::899986137183:role/snowflake_data_exporter'
-    api_allowed_prefixes=('https://2wwl89e43c.execute-api.eu-west-2.amazonaws.com/Test/')
+    api_allowed_prefixes=('https://ayaac8bic5.execute-api.eu-west-2.amazonaws.com/default')
     enabled=true;
 
   

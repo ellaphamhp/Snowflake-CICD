@@ -2,7 +2,7 @@
 CREATE OR REPLACE EXTERNAL FUNCTION DATAPROJECT_{{environment}}.PUBLIC.GET_EVENT()
     RETURNS VARIANT
     API_INTEGRATION = get_event_api
-    AS 'https://2wwl89e43c.execute-api.eu-west-2.amazonaws.com/Test/Get_Inflation_Rate';
+    AS 'https://ayaac8bic5.execute-api.eu-west-2.amazonaws.com/default/Get_Inflation_Rate';
 
 //Create raw event table
 CREATE OR REPLACE TABLE DATAPROJECT_{{environment}}.RAW."trade_events" (
