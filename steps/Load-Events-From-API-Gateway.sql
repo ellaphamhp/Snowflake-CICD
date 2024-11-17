@@ -20,7 +20,6 @@ CREATE OR REPLACE PROCEDURE DATAPROJECT_{{environment}}.PUBLIC.Load_Event()
     LANGUAGE SQL
     AS
     BEGIN
-    SELECT DATAPROJECT_{{environment}}.PUBLIC.GET_EVENT();
     LET sql := 'COPY INTO DATAPROJECT_{{environment}}.RAW."trade_events" 
                     FROM (
                         SELECT $1:dateUtc::TIMESTAMP_LTZ
