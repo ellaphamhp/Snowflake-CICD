@@ -1,6 +1,6 @@
 USE DATABASE DATAPROJECT_{{environment}};
 
---Create external function to call Lambda function Get Inflation Rate:
+--Create external utils to call Lambda utils Get Inflation Rate:
 CREATE OR REPLACE EXTERNAL FUNCTION DATAPROJECT_{{environment}}.PUBLIC.GET_EVENT()
     RETURNS VARIANT
     API_INTEGRATION = get_event_api

@@ -78,6 +78,19 @@ CREATE OR REPLACE STAGE s3_stage_events
 --DESC STAGE s3_stage_events
 
 
+//Create stage that store my data files: events tables
+CREATE OR REPLACE STAGE s3_stage_ports
+  URL='s3://dataproject-jun24/ports/'
+  FILE_FORMAT = DATAPROJECT_{{environment}}.PUBLIC.MY_CSV_FORMAT
+  STORAGE_INTEGRATION = aws
+  DIRECTORY = (
+    ENABLE = true
+    AUTO_REFRESH = true
+    AWS_SNS_TOPIC = 'arn:aws:sns:eu-west-2:899986137183:new_file_port'
+  );
+--DESC STAGE s3_stage_ports
+
+
 ////API GATEWAY INTEGRATION
 create or replace api integration get_event_api
     api_provider=aws_api_gateway
