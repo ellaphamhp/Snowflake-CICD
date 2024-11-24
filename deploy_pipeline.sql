@@ -8,5 +8,3 @@ execute immediate from 'steps/Load-DW-Hierachy-Tables.sql' using (environment =>
 execute immediate from 'steps/Load-Events-From-API-Gateway.sql' using (environment => '{{environment}}');;
 execute immediate from 'steps/Load-Serve-Tables.sql' using (environment => '{{environment}}');;
 execute immediate from 'steps/Resume-All-Tasks.sql' using (environment => '{{environment}}');;
-execute immediate from 'steps/Load-Raw-Data.sql' using (environment => '{{environment}}');;
-

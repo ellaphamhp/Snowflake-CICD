@@ -102,3 +102,44 @@ CREATE OR REPLACE TABLE DATAPROJECT_{{environment}}.RAW."weekly_hours_by_industr
           FROM @DATAPROJECT_{{environment}}.PUBLIC.MY_S3_STAGE_WEEKLY_HOURS t
     )
     FILE_FORMAT = (FORMAT_NAME=DATAPROJECT_{{environment}}.PUBLIC.MY_CSV_FORMAT);
+
+//Create raw principal ports table
+CREATE OR REPLACE TABLE "DATAPROJECT_{{environment}}"."RAW"."principal_ports" (
+  "Lat" FLOAT,
+  "Long" FLOAT,
+  "FID" INT,
+  "Port" VARCHAR(6),
+  "Type" VARCHAR(6),
+  "Port_Name" VARCHAR(100),
+  "Rank" INT,
+  "Total_Tonnage" FLOAT,
+  "Foreign_Tonnage" FLOAT,
+  "Export_Tonnage" FLOAT,
+  "Import_Tonnage" FLOAT,
+  "Domestic_Tonnage" FLOAT,
+  "Created_Date" TIMESTAMP_LTZ(0));
+
+
+//CREATE PIPE snowpipe_db.public.mypipe
+  CREATE OR REPLACE PIPE DATAPROJECT_{{environment}}.public.S3_PIPE_PORTS
+  AUTO_INGEST = TRUE
+  AWS_SNS_TOPIC='arn:aws:sns:eu-west-2:899986137183:new_file_port'
+  AS
+    COPY INTO ç
+    FROM(
+    SELECT t.$1
+          ,t.$2
+          ,t.$3
+          ,t.$4
+          ,t.$5
+          ,t.$6
+          ,t.$7
+          ,t.$8
+          ,t.$9
+          ,t.$10
+          ,t.$11
+          ,t.$12
+          ,CURRENT_TIMESTAMP()
+          FROM @DATAPROJECT_{{environment}}.PUBLIC.S3_STAGE_PORTS t
+    )
+    FILE_FORMAT = (FORMAT_NAME=DATAPROJECT_{{environment}}.PUBLIC.MY_CSV_FORMAT);

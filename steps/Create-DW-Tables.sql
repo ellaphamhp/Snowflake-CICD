@@ -1,7 +1,7 @@
 USE DATABASE DATAPROJECT_{{environment}};
 ALTER SESSION SET TIMEZONE='UTC';
 
-//Create Hieracy Table
+//Create Hierachy Table
 
 CREATE OR REPLACE VIEW DATAPROJECT_{{environment}}.DW.Hierachies
 AS

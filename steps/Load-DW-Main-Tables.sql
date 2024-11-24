@@ -4,7 +4,7 @@ USE DATABASE DATAPROJECT_{{environment}};
 //Create stream on the view
 ALTER TABLE DATAPROJECT_{{environment}}.RAW."employment_by_industry" SET CHANGE_TRACKING = TRUE;
 
-CREATE OR REPLACE STREAM DATAPROJECT_{{environment}}.PUBLIC.Stream_Raw_Table 
+CREATE STREAM IF NOT EXISTS DATAPROJECT_{{environment}}.PUBLIC.Stream_Raw_Table
     ON TABLE DATAPROJECT_{{environment}}.RAW."employment_by_industry"
         APPEND_ONLY = TRUE;
 
@@ -26,7 +26,7 @@ CREATE OR REPLACE TASK DATAPROJECT_{{environment}}.PUBLIC.LOAD_EMPLOYMENT_BY_IND
 //Create stream on the view
 ALTER TABLE DATAPROJECT_{{environment}}.RAW."hourly_earnings_by_industry"SET CHANGE_TRACKING = TRUE;
 
-CREATE OR REPLACE STREAM DATAPROJECT_{{environment}}.PUBLIC.Stream_Raw_Table_Hourly_Earnings 
+CREATE STREAM IF NOT EXISTS DATAPROJECT_{{environment}}.PUBLIC.Stream_Raw_Table_Hourly_Earnings
     ON TABLE DATAPROJECT_{{environment}}.RAW."hourly_earnings_by_industry"
         APPEND_ONLY = TRue;
 
@@ -47,7 +47,7 @@ CREATE OR REPLACE TASK DATAPROJECT_{{environment}}.PUBLIC.LOAD_HOURLY_EARNINGS_B
 //Create stream on the view
 ALTER TABLE DATAPROJECT_{{environment}}.RAW."weekly_hours_by_industry" SET CHANGE_TRACKING = TRUE;
 
-CREATE OR REPLACE STREAM DATAPROJECT_{{environment}}.PUBLIC.Stream_Raw_Table_Weekly_Hours 
+CREATE STREAM IF NOT EXISTS DATAPROJECT_{{environment}}.PUBLIC.Stream_Raw_Table_Weekly_Hours
     ON TABLE DATAPROJECT_{{environment}}.RAW."weekly_hours_by_industry"
         APPEND_ONLY = TRue;
 

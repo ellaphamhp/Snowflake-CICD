@@ -1,8 +1,8 @@
-CREATE OR REPLACE DATABASE DATAPROJECT_{{environment}};
+CREATE DATABASE IF NOT EXISTS DATAPROJECT_{{environment}};
 USE DATABASE DATAPROJECT_{{environment}};
 USE SCHEMA PUBLIC;
 
-CREATE OR REPLACE STORAGE INTEGRATION aws
+CREATE STORAGE INTEGRATION IF NOT EXISTS aws
   TYPE = EXTERNAL_STAGE
   STORAGE_PROVIDER = 'S3'
   ENABLED = TRUE
@@ -15,12 +15,12 @@ CREATE OR REPLACE STORAGE INTEGRATION aws
 ////FILE FORMATS
 
 // Creating file format object: csv
-CREATE OR REPLACE file format DATAPROJECT_{{environment}}.public.my_csv_format;
+CREATE file format IF NOT EXISTS DATAPROJECT_{{environment}}.public.my_csv_format;
 ALTER file format DATAPROJECT_{{environment}}.public.my_csv_format SET SKIP_HEADER=1;
 ALTER file format DATAPROJECT_{{environment}}.public.my_csv_format SET FIELD_OPTIONALLY_ENCLOSED_BY = '0x22';
 
 // Creating file format object: json
-CREATE OR REPLACE file format DATAPROJECT_{{environment}}.public.my_json_format
+CREATE file format IF NOT EXISTS DATAPROJECT_{{environment}}.public.my_json_format
     TYPE = JSON,
     STRIP_OUTER_ARRAY = TRUE;
 --DESC file format DATAPROJECT.public.my_json_format
@@ -30,7 +30,7 @@ CREATE OR REPLACE file format DATAPROJECT_{{environment}}.public.my_json_format
 -----------------------
 ////STAGES
 //Create stage that store my data files: employment by industry tables
-CREATE OR REPLACE STAGE my_s3_stage
+CREATE STAGE IF NOT EXISTS my_s3_stage
   URL='s3://dataproject-jun24/usa/labor/industry_employment/us_employment_by_industry.csv/'
     STORAGE_INTEGRATION = aws
     DIRECTORY = (
@@ -41,7 +41,7 @@ CREATE OR REPLACE STAGE my_s3_stage
  -- DESC STAGE my_s3_stage
 
 //Create stage that store my data files: hourly earning by industry
-CREATE OR REPLACE STAGE my_s3_stage_hourly_earnings
+CREATE STAGE IF NOT EXISTS my_s3_stage_hourly_earnings
     URL= 's3://dataproject-jun24/usa/labor/industry_employment/us_hourly_earnings_by_industry.csv/'
     STORAGE_INTEGRATION = aws
     DIRECTORY = (
@@ -52,7 +52,7 @@ CREATE OR REPLACE STAGE my_s3_stage_hourly_earnings
 --DESC STAGE my_s3_stage_hourly_earnings
 
 //Create stage that store my data files: weekly hours by industry
-CREATE OR REPLACE STAGE my_s3_stage_weekly_hours
+CREATE STAGE IF NOT EXISTS my_s3_stage_weekly_hours
     URL= 's3://dataproject-jun24/usa/labor/industry_employment/us_weekly_hours_by_industry.csv/'
     STORAGE_INTEGRATION = aws
     DIRECTORY = (
@@ -64,7 +64,7 @@ CREATE OR REPLACE STAGE my_s3_stage_weekly_hours
 
   
 //Create stage that store my data files: events tables
-CREATE OR REPLACE STAGE s3_stage_events
+CREATE STAGE IF NOT EXISTS s3_stage_events
     URL='s3://dataproject-jun24/events/'
     FILE_FORMAT = (
       TYPE = JSON
@@ -78,8 +78,8 @@ CREATE OR REPLACE STAGE s3_stage_events
 --DESC STAGE s3_stage_events
 
 
-//Create stage that store my data files: events tables
-CREATE OR REPLACE STAGE s3_stage_ports
+//Create stage that store my data files: principal ports
+CREATE STAGE IF NOT EXISTS s3_stage_ports
   URL='s3://dataproject-jun24/ports/'
   FILE_FORMAT = DATAPROJECT_{{environment}}.PUBLIC.MY_CSV_FORMAT
   STORAGE_INTEGRATION = aws
@@ -92,7 +92,7 @@ CREATE OR REPLACE STAGE s3_stage_ports
 
 
 ////API GATEWAY INTEGRATION
-create or replace api integration get_event_api
+create api integration IF NOT EXISTS get_event_api
     api_provider=aws_api_gateway
     api_aws_role_arn='arn:aws:iam::899986137183:role/snowflake_data_exporter'
     api_allowed_prefixes=('https://ayaac8bic5.execute-api.eu-west-2.amazonaws.com/default')
@@ -122,9 +122,9 @@ grant role looker_role to user looker_user;
 -- change role
 use role ACCOUNTADMIN;
 
-CREATE OR REPLACE SCHEMA DATAPROJECT_{{environment}}.RAW;
-CREATE OR REPLACE SCHEMA DATAPROJECT_{{environment}}.DW;
-CREATE OR REPLACE SCHEMA DATAPROJECT_{{environment}}.SERVE;
+CREATE SCHEMA IF NOT EXISTS DATAPROJECT_{{environment}}.RAW;
+CREATE SCHEMA IF NOT EXISTS DATAPROJECT_{{environment}}.DW;
+CREATE SCHEMA IF NOT EXISTS DATAPROJECT_{{environment}}.SERVE;
 
 -- grant read only database access (repeat for all database/schemas)
 grant usage on warehouse compute_wh to role public;

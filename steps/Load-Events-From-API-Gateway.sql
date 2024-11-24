@@ -1,13 +1,13 @@
 USE DATABASE DATAPROJECT_{{environment}};
 
 --Create external utils to call Lambda utils Get Inflation Rate:
-CREATE OR REPLACE EXTERNAL FUNCTION DATAPROJECT_{{environment}}.PUBLIC.GET_EVENT()
+CREATE EXTERNAL FUNCTION IF NOT EXISTS DATAPROJECT_{{environment}}.PUBLIC.GET_EVENT()
     RETURNS VARIANT
     API_INTEGRATION = get_event_api
     AS 'https://ayaac8bic5.execute-api.eu-west-2.amazonaws.com/default/Get_Inflation_Rate';
 
 //Create raw event table
-CREATE OR REPLACE TABLE DATAPROJECT_{{environment}}.RAW."trade_events" (
+CREATE TABLE IF NOT EXISTS DATAPROJECT_{{environment}}.RAW."trade_events" (
     "dateUtc" TIMESTAMP_LTZ
     ,"isBetterThanExpected" STRING
     ,"name" STRING
