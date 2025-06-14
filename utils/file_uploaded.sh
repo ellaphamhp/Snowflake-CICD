@@ -14,7 +14,7 @@ PYTHON_SCRIPT="/Users/epham/PycharmProjects/dataproject/test.py"
 #fi
 
 ##make the file executable
-#chmod +x file_monitor.sh
+#chmod +x file_uploaded.sh
 
 #touch "$DIRECTORY_TO_WATCH/.last_run"
 python "$PYTHON_SCRIPT"
